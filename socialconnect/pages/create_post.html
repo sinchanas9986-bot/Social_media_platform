@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post - FriendsVibe</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsocialconn7845back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-contextual-sm border-b border-secondary-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="user_profile.html" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-text-primary">FriendsVibe</span>
+                    </a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="user_profile.html" class="text-text-secondary hover:text-primary-600 font-medium transition-colors duration-fast">
+                        Profile
+                    </a>
+                    <a href="user_search.html" class="text-text-secondary hover:text-primary-600 font-medium transition-colors duration-fast">
+                        Search
+                    </a>
+                    <a href="create_post.html" class="text-primary-600 font-medium">
+                        Create Post
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-text-secondary hover:text-primary-600 hover:bg-secondary-100 transition-colors duration-fast">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-surface border-t border-secondary-200">
+            <div class="px-4 py-2 space-y-1">
+                <a href="user_profile.html" class="block px-3 py-2 text-text-secondary hover:text-primary-600 hover:bg-secondary-100 rounded-lg transition-colors duration-fast">
+                    Profile
+                </a>
+                <a href="user_search.html" class="block px-3 py-2 text-text-secondary hover:text-primary-600 hover:bg-secondary-100 rounded-lg transition-colors duration-fast">
+                    Search
+                </a>
+                <a href="create_post.html" class="block px-3 py-2 text-primary-600 bg-primary-50 rounded-lg">
+                    Create Post
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <!-- Desktop Modal Overlay -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:flex items-center justify-center" id="desktopOverlay">
+            <div class="bg-surface rounded-social shadow-contextual-lg w-full max-w-lg mx-4 max-h-[90vh] overflow-hidden">
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-6 border-b border-secondary-200">
+                    <h1 class="text-xl font-bold text-text-primary">Create Post</h1>
+                    <button id="cancelBtn" class="text-text-secondary hover:text-error-500 transition-colors duration-fast">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Modal Content -->
+                <div class="p-6">
+                    <div id="createPostContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile/Tablet Full Screen -->
+        <div class="lg:hidden max-w-2xl mx-auto">
+            <!-- Mobile Header -->
+            <div class="flex items-center justify-between mb-6">
+                <button id="cancelBtnMobile" class="text-text-secondary hover:text-error-500 font-medium transition-colors duration-fast">
+                    Cancel
+                </button>
+                <h1 class="text-xl font-bold text-text-primary">Create Post</h1>
+                <button id="postBtnMobile" class="bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-normal disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Post
+                </button>
+            </div>
+            
+            <div id="createPostContentMobile"></div>
+        </div>
+    </main>
+
+    <!-- Unsaved Changes Modal -->
+    <div id="unsavedChangesModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-surface rounded-social shadow-contextual-lg w-full max-w-md mx-4 p-6">
+            <h3 class="text-lg font-bold text-text-primary mb-4">Unsaved Changes</h3>
+            <p class="text-text-secondary mb-6">You have unsaved changes. Are you sure you want to leave?</p>
+            <div class="flex space-x-3">
+                <button id="discardBtn" class="flex-1 bg-error-500 text-white py-2 px-4 rounded-lg font-medium hover:bg-error-600 transition-colors duration-normal">
+                    Discard
+                </button>
+                <button id="keepEditingBtn" class="flex-1 bg-secondary-200 text-text-primary py-2 px-4 rounded-lg font-medium hover:bg-secondary-300 transition-colors duration-normal">
+                    Keep Editing
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-surface rounded-social shadow-contextual-lg w-full max-w-md mx-4 p-6 text-center">
+            <div class="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <h3 class="text-lg font-bold text-text-primary mb-2">Post Created!</h3>
+            <p class="text-text-secondary mb-6">Your post has been shared successfully.</p>
+            <button id="viewPostBtn" class="w-full bg-primary-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-normal">
+                View Post
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const desktopOverlay = document.getElementById('desktopOverlay');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const cancelBtnMobile = document.getElementById('cancelBtnMobile');
+            const postBtnMobile = document.getElementById('postBtnMobile');
+            const unsavedChangesModal = document.getElementById('unsavedChangesModal');
+            const discardBtn = document.getElementById('discardBtn');
+            const keepEditingBtn = document.getElementById('keepEditingBtn');
+            const successModal = document.getElementById('successModal');
+            const viewPostBtn = document.getElementById('viewPostBtn');
+
+            let hasUnsavedChanges = false;
+            let autoSaveInterval;
+            let currentUserData = null;
+
+            // Load user data from localStorage
+            function loadUserData() {
+                try {
+                    const userData = localStorage.getItem('socialConnect_userData');
+                    if (userData) {
+                        currentUserData = JSON.parse(userData);
+                    } else {
+                        console.warn('No user data found in localStorage');
+                        // Fallback to default values
+                        currentUserData = {
+                            fullName: 'Unknown User',
+                            profilePicture: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                        };
+                    }
+                } catch (error) {
+                    console.error('Error loading user data:', error);
+                    // Fallback to default values
+                    currentUserData = {
+                        fullName: 'Unknown User',
+                        profilePicture: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                    };
+                }
+            }
+
+            // Load user data on page load
+            loadUserData();
+
+            // Show desktop overlay on large screens
+            if (window.innerWidth >= 1024) {
+                desktopOverlay.classList.remove('hidden');
+            }
+
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Create post form content with dynamic user data
+            function createPostForm() {
+                const userProfileImage = currentUserData.profilePicture || 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+                const userFullName = currentUserData.fullName || 'Unknown User';
+
+                return `
+                    <!-- User Info -->
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="${userProfileImage}" 
+                             alt="Your Profile" class="w-12 h-12 rounded-full object-cover"
+                             onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                        <div>
+                            <h3 class="font-semibold text-text-primary">${userFullName}</h3>
+                            <div class="flex items-center space-x-2">
+                                <select id="privacySelector" class="text-sm text-text-secondary bg-secondary-100 border border-secondary-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                    <option value="public">🌍 Public</option>
+                                    <option value="followers">👥 Followers Only</option>
+                                    <option value="private">🔒 Private</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Area -->
+                    <div class="mb-6">
+                        <textarea id="postContent" 
+                                  placeholder="What's on your mind?" 
+                                  class="w-full min-h-32 max-h-64 p-4 border border-secondary-300 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-normal text-lg"
+                                  maxlength="500"></textarea>
+                        
+                        <!-- Character Counter -->
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="text-sm text-text-secondary">
+                                <span id="draftStatus" class="hidden">
+                                    <svg class="w-4 h-4 inline mr-1 text-success-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                    </svg>
+                                    Draft saved
+                                </span>
+                            </div>
+                            <div class="text-sm">
+                                <span id="charCount" class="text-text-secondary">0</span>
+                                <span class="text-text-secondary">/500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post Preview -->
+                    <div id="postPreview" class="hidden mb-6 p-4 bg-secondary-50 rounded-lg border border-secondary-200">
+                        <h4 class="text-sm font-medium text-text-primary mb-3">Preview</h4>
+                        <div class="flex items-start space-x-3">
+                            <img src="${userProfileImage}" 
+                                 alt="Your Profile" class="w-10 h-10 rounded-full object-cover"
+                                 onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="font-semibold text-text-primary text-sm">${userFullName}</span>
+                                    <span class="text-text-secondary text-xs">•</span>
+                                    <span class="text-text-secondary text-xs">now</span>
+                                    <span id="privacyIcon" class="text-text-secondary text-xs">🌍</span>
+                                </div>
+                                <p id="previewText" class="text-text-primary text-sm"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Post Button -->
+                    <div class="hidden lg:flex justify-end space-x-3">
+                        <button id="previewBtn" class="px-4 py-2 text-text-secondary hover:text-primary-600 font-medium transition-colors duration-fast">
+                            Preview
+                        </button>
+                        <button id="postBtnDesktop" class="bg-primary-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-normal disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            Post
+                        </button>
+                    </div>
+
+                    <!-- Keyboard Shortcut Hint -->
+                    <div class="hidden lg:block mt-4 text-xs text-text-secondary text-center">
+                        Press <kbd class="px-2 py-1 bg-secondary-200 rounded text-xs">Ctrl</kbd> + <kbd class="px-2 py-1 bg-secondary-200 rounded text-xs">Enter</kbd> to post
+                    </div>
+                `;
+            }
+
+            // Insert form content
+            const createPostContent = document.getElementById('createPostContent');
+            const createPostContentMobile = document.getElementById('createPostContentMobile');
+            
+            if (createPostContent) createPostContent.innerHTML = createPostForm();
+            if (createPostContentMobile) createPostContentMobile.innerHTML = createPostForm();
+
+            // Initialize form functionality
+            function initializeForm() {
+                const postContent = document.getElementById('postContent');
+                const charCount = document.getElementById('charCount');
+                const postBtnDesktop = document.getElementById('postBtnDesktop');
+                const previewBtn = document.getElementById('previewBtn');
+                const postPreview = document.getElementById('postPreview');
+                const previewText = document.getElementById('previewText');
+                const privacySelector = document.getElementById('privacySelector');
+                const privacyIcon = document.getElementById('privacyIcon');
+                const draftStatus = document.getElementById('draftStatus');
+
+                if (!postContent) return;
+
+                // Auto-resize textarea
+                postContent.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 256) + 'px';
+                    
+                    // Update character count
+                    const count = this.value.length;
+                    charCount.textContent = count;
+                    
+                    // Color-code character count
+                    if (count > 450) {
+                        charCount.className = 'text-error-500 font-medium';
+                    } else if (count > 400) {
+                        charCount.className = 'text-warning-500';
+                    } else {
+                        charCount.className = 'text-text-secondary';
+                    }
+                    
+                    // Enable/disable post buttons
+                    const isValid = count >= 10 && count <= 500;
+                    if (postBtnDesktop) postBtnDesktop.disabled = !isValid;
+                    if (postBtnMobile) postBtnMobile.disabled = !isValid;
+                    
+                    // Update preview
+                    if (previewText) previewText.textContent = this.value;
+                    
+                    // Mark as having unsaved changes
+                    hasUnsavedChanges = count > 0;
+                    
+                    // Auto-save draft
+                    clearTimeout(autoSaveInterval);
+                    if (count > 0) {
+                        autoSaveInterval = setTimeout(() => {
+                            localStorage.setItem('postDraft', JSON.stringify({
+                                content: this.value,
+                                privacy: privacySelector.value,
+                                timestamp: Date.now()
+                            }));
+                            if (draftStatus) {
+                                draftStatus.classList.remove('hidden');
+                                setTimeout(() => draftStatus.classList.add('hidden'), 2000);
+                            }
+                        }, 1000);
+                    }
+                });
+
+                // Privacy selector change
+                if (privacySelector) {
+                    privacySelector.addEventListener('change', function() {
+                        const icons = {
+                            'public': '🌍',
+                            'followers': '👥',
+                            'private': '🔒'
+                        };
+                        if (privacyIcon) privacyIcon.textContent = icons[this.value];
+                        hasUnsavedChanges = true;
+                    });
+                }
+
+                // Preview toggle
+                if (previewBtn) {
+                    previewBtn.addEventListener('click', function() {
+                        if (postPreview) {
+                            postPreview.classList.toggle('hidden');
+                            this.textContent = postPreview.classList.contains('hidden') ? 'Preview' : 'Hide Preview';
+                        }
+                    });
+                }
+
+                // Keyboard shortcuts
+                postContent.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        e.preventDefault();
+                        if (!postBtnDesktop?.disabled) {
+                            handlePost();
+                        }
+                    }
+                });
+
+                // Load draft
+                const savedDraft = localStorage.getItem('postDraft');
+                if (savedDraft) {
+                    try {
+                        const draft = JSON.parse(savedDraft);
+                        // Only load if draft is less than 24 hours old
+                        if (Date.now() - draft.timestamp < 24 * 60 * 60 * 1000) {
+                            postContent.value = draft.content;
+                            if (privacySelector) privacySelector.value = draft.privacy;
+                            postContent.dispatchEvent(new Event('input'));
+                        }
+                    } catch (e) {
+                        console.error('Error loading draft:', e);
+                    }
+                }
+
+                // Post button handlers
+                if (postBtnDesktop) {
+                    postBtnDesktop.addEventListener('click', handlePost);
+                }
+                if (postBtnMobile) {
+                    postBtnMobile.addEventListener('click', handlePost);
+                }
+            }
+
+            // Handle post submission
+            function handlePost() {
+                const postContent = document.getElementById('postContent');
+                if (!postContent || postContent.value.trim().length < 10) return;
+
+                // Show loading state
+                const postBtns = [document.getElementById('postBtnDesktop'), document.getElementById('postBtnMobile')];
+                postBtns.forEach(btn => {
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.innerHTML = `
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Posting...
+                        `;
+                    }
+                });
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Clear draft
+                    localStorage.removeItem('postDraft');
+                    hasUnsavedChanges = false;
+                    
+                    // Show success modal
+                    successModal.classList.remove('hidden');
+                }, 1500);
+            }
+
+            // Cancel handlers
+            function handleCancel() {
+                if (hasUnsavedChanges) {
+                    unsavedChangesModal.classList.remove('hidden');
+                } else {
+                    window.location.href = 'user_profile.html';
+                }
+            }
+
+            if (cancelBtn) cancelBtn.addEventListener('click', handleCancel);
+            if (cancelBtnMobile) cancelBtnMobile.addEventListener('click', handleCancel);
+
+            // Unsaved changes modal handlers
+            if (discardBtn) {
+                discardBtn.addEventListener('click', function() {
+                    localStorage.removeItem('postDraft');
+                    hasUnsavedChanges = false;
+                    window.location.href = 'user_profile.html';
+                });
+            }
+
+            if (keepEditingBtn) {
+                keepEditingBtn.addEventListener('click', function() {
+                    unsavedChangesModal.classList.add('hidden');
+                });
+            }
+
+            // Success modal handler
+            if (viewPostBtn) {
+                viewPostBtn.addEventListener('click', function() {
+                    window.location.href = 'user_profile.html';
+                });
+            }
+
+            // Initialize form after content is loaded
+            setTimeout(initializeForm, 100);
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    desktopOverlay.classList.remove('hidden');
+                } else {
+                    desktopOverlay.classList.add('hidden');
+                }
+            });
+
+            // Prevent accidental navigation
+            window.addEventListener('beforeunload', function(e) {
+                if (hasUnsavedChanges) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

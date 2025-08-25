@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Users - FriendsVibe</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsocialconn7845back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-contextual-sm border-b border-secondary-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="user_profile.html" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-text-primary">FriendsVibe</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="user_profile.html" class="text-text-secondary hover:text-primary-600 font-medium transition-colors duration-normal">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        Home
+                    </a>
+                    <a href="user_search.html" class="text-primary-600 font-medium">
+                        <svg class="w-5 h-5 inline mr-2" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        Search
+                    </a>
+                    <a href="create_post.html" class="text-text-secondary hover:text-primary-600 font-medium transition-colors duration-normal">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Create
+                    </a>
+                </nav>
+
+                <!-- Profile Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button id="profileMenuBtn" class="flex items-center space-x-2 text-text-secondary hover:text-primary-600 transition-colors duration-normal">
+                            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Profile" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-surface rounded-social shadow-contextual-lg border border-secondary-200 py-2">
+                            <a href="user_profile.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary-600 transition-colors duration-normal">
+                                View Profile
+                            </a>
+                            <a href="edit_profile.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-primary-600 transition-colors duration-normal">
+                                Edit Profile
+                            </a>
+                            <hr class="my-2 border-secondary-200" />
+                            <a href="user_login.html" class="block px-4 py-2 text-sm text-text-secondary hover:bg-secondary-50 hover:text-error-500 transition-colors duration-normal">
+                                Sign Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Search Header -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-text-primary mb-2">Discover People</h1>
+            <p class="text-text-secondary">Find and connect with other users on SocialConnect</p>
+        </div>
+
+        <!-- Search Input Section -->
+        <div class="bg-surface rounded-social shadow-contextual-md p-6 mb-8">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input type="text" id="searchInput" class="w-full pl-10 pr-12 py-4 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-normal text-lg" placeholder="Search for users..." />
+                <button id="clearSearch" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <svg class="h-5 w-5 text-secondary-400 hover:text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Search Filters -->
+            <div class="mt-4">
+                <button id="filterToggle" class="flex items-center text-sm text-text-secondary hover:text-primary-600 transition-colors duration-normal">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    Advanced Filters
+                    <svg id="filterChevron" class="w-4 h-4 ml-1 transform transition-transform duration-normal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                
+                <div id="filterPanel" class="hidden mt-4 p-4 bg-secondary-50 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">User Type</label>
+                            <select class="w-full px-3 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value>All Users</option>
+                                <option value="verified">Verified Users</option>
+                                <option value="creators">Content Creators</option>
+                                <option value="businesses">Businesses</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Connections</label>
+                            <select class="w-full px-3 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value>All</option>
+                                <option value="mutual">Mutual Connections</option>
+                                <option value="following">People I Follow</option>
+                                <option value="followers">My Followers</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Location</label>
+                            <select class="w-full px-3 py-2 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value>Any Location</option>
+                                <option value="nearby">Nearby</option>
+                                <option value="same-city">Same City</option>
+                                <option value="same-country">Same Country</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-end space-x-3">
+                        <button class="px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-normal">
+                            Reset Filters
+                        </button>
+                        <button class="px-4 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors duration-normal">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Searches -->
+        <div id="recentSearches" class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-text-primary">Recent Searches</h2>
+                <button id="clearHistory" class="text-sm text-text-secondary hover:text-primary-600 transition-colors duration-normal">
+                    Clear All
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button class="px-3 py-1 bg-secondary-100 text-text-secondary rounded-full text-sm hover:bg-secondary-200 transition-colors duration-normal">
+                    Sarah Johnson
+                </button>
+                <button class="px-3 py-1 bg-secondary-100 text-text-secondary rounded-full text-sm hover:bg-secondary-200 transition-colors duration-normal">
+                    @mikecreator
+                </button>
+                <button class="px-3 py-1 bg-secondary-100 text-text-secondary rounded-full text-sm hover:bg-secondary-200 transition-colors duration-normal">
+                    photographers
+                </button>
+                <button class="px-3 py-1 bg-secondary-100 text-text-secondary rounded-full text-sm hover:bg-secondary-200 transition-colors duration-normal">
+                    Alex Chen
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" class="space-y-4">
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden space-y-4">
+                <div class="bg-surface rounded-social shadow-contextual-sm p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-secondary-200 rounded-full shimmer"></div>
+                        <div class="flex-1">
+                            <div class="h-4 bg-secondary-200 rounded shimmer mb-2"></div>
+                            <div class="h-3 bg-secondary-200 rounded shimmer w-3/4 mb-2"></div>
+                            <div class="h-3 bg-secondary-200 rounded shimmer w-1/2"></div>
+                        </div>
+                        <div class="w-20 h-8 bg-secondary-200 rounded shimmer"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Results -->
+            <div id="userResults" class="space-y-4">
+                <!-- User Card 1 -->
+                <div class="bg-surface rounded-social shadow-contextual-sm hover:shadow-contextual-md transition-shadow duration-normal p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <a href="user_profile.html" class="flex-shrink-0">
+                                <img src="https://images.pixabay.com/photo/2017/11/02/14/27/model-2911363_1280.jpg" alt="Sarah Johnson" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            </a>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <a href="user_profile.html" class="font-semibold text-text-primary hover:text-primary-600 transition-colors duration-normal">
+                                        Sarah Johnson
+                                    </a>
+                                    <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <p class="text-text-secondary text-sm">@sarahjohnson</p>
+                                <div class="flex items-center space-x-4 mt-2 text-sm text-text-secondary">
+                                    <span>2.4K followers</span>
+                                    <span>•</span>
+                                    <span class="flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                        3 mutual connections
+                                    </span>
+                                </div>
+                                <p class="text-text-secondary text-sm mt-1">Digital artist and photographer based in NYC</p>
+                            </div>
+                        </div>
+                        <button class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-normal font-medium">
+                            Follow
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Card 2 -->
+                <div class="bg-surface rounded-social shadow-contextual-sm hover:shadow-contextual-md transition-shadow duration-normal p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <a href="user_profile.html" class="flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100" alt="Mike Rodriguez" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            </a>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <a href="user_profile.html" class="font-semibold text-text-primary hover:text-primary-600 transition-colors duration-normal">
+                                        Mike Rodriguez
+                                    </a>
+                                </div>
+                                <p class="text-text-secondary text-sm">@mikecreator</p>
+                                <div class="flex items-center space-x-4 mt-2 text-sm text-text-secondary">
+                                    <span>8.7K followers</span>
+                                    <span>•</span>
+                                    <span class="flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                        12 mutual connections
+                                    </span>
+                                </div>
+                                <p class="text-text-secondary text-sm mt-1">Content creator sharing tech tips and lifestyle content</p>
+                            </div>
+                        </div>
+                        <button class="px-6 py-2 border border-secondary-300 text-text-secondary rounded-lg hover:bg-secondary-50 transition-colors duration-normal font-medium">
+                            Following
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Card 3 -->
+                <div class="bg-surface rounded-social shadow-contextual-sm hover:shadow-contextual-md transition-shadow duration-normal p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <a href="user_profile.html" class="flex-shrink-0">
+                                <img src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Alex Chen" class="w-16 h-16 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            </a>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <a href="user_profile.html" class="font-semibold text-text-primary hover:text-primary-600 transition-colors duration-normal">
+                                        Alex Chen
+                                    </a>
+                                    <span class="px-2 py-1 bg-accent-100 text-accent-600 text-xs rounded-full font-medium">Business</span>
+                                </div>
+                                <p class="text-text-secondary text-sm">@alexchen_design</p>
+                                <div class="flex items-center space-x-4 mt-2 text-sm text-text-secondary">
+                                    <span>1.2K followers</span>
+                                    <span>•</span>
+                                    <span class="flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        San Francisco, CA
+                                    </span>
+                                </div>
+                                <p class="text-text-secondary text-sm mt-1">UX Designer at TechCorp • Design systems enthusiast</p>
+                            </div>
+                        </div>
+                        <button class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-normal font-medium">
+                            Follow
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results State -->
+            <div id="noResults" class="hidden text-center py-12">
+                <div class="max-w-md mx-auto">
+                    <svg class="w-16 h-16 text-secondary-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-text-primary mb-2">No users found</h3>
+                    <p class="text-text-secondary mb-6">We couldn't find any users matching your search. Try different keywords or check your spelling.</p>
+                    <div class="space-y-3">
+                        <button class="w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-normal">
+                            Invite Friends to Join
+                        </button>
+                        <button class="w-full px-4 py-2 border border-secondary-300 text-text-secondary rounded-lg hover:bg-secondary-50 transition-colors duration-normal">
+                            Browse Suggested Users
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div id="loadMore" class="text-center py-8">
+                <button class="px-6 py-3 bg-surface border border-secondary-300 text-text-secondary rounded-lg hover:bg-secondary-50 transition-colors duration-normal font-medium">
+                    Load More Users
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-secondary-200 px-4 py-2">
+        <div class="flex justify-around items-center">
+            <a href="user_profile.html" class="flex flex-col items-center py-2 text-text-secondary hover:text-primary-600 transition-colors duration-normal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                <span class="text-xs mt-1">Home</span>
+            </a>
+            <a href="user_search.html" class="flex flex-col items-center py-2 text-primary-600">
+                <svg class="w-6 h-6" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <span class="text-xs mt-1">Search</span>
+            </a>
+            <a href="create_post.html" class="flex flex-col items-center py-2 text-text-secondary hover:text-primary-600 transition-colors duration-normal">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span class="text-xs mt-1">Create</span>
+            </a>
+            <a href="user_profile.html" class="flex flex-col items-center py-2 text-text-secondary hover:text-primary-600 transition-colors duration-normal">
+                <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=24&h=24&fit=crop" alt="Profile" class="w-6 h-6 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                <span class="text-xs mt-1">Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+            const filterToggle = document.getElementById('filterToggle');
+            const filterPanel = document.getElementById('filterPanel');
+            const filterChevron = document.getElementById('filterChevron');
+            const profileMenuBtn = document.getElementById('profileMenuBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+            const recentSearches = document.getElementById('recentSearches');
+            const userResults = document.getElementById('userResults');
+            const noResults = document.getElementById('noResults');
+            const loadingState = document.getElementById('loadingState');
+            const clearHistory = document.getElementById('clearHistory');
+
+            // Search functionality
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                
+                if (query.length > 0) {
+                    clearSearch.classList.remove('hidden');
+                    recentSearches.classList.add('hidden');
+                    
+                    // Clear previous timeout
+                    clearTimeout(searchTimeout);
+                    
+                    // Show loading state
+                    loadingState.classList.remove('hidden');
+                    userResults.classList.add('hidden');
+                    noResults.classList.add('hidden');
+                    
+                    // Simulate search with debounce
+                    searchTimeout = setTimeout(() => {
+                        performSearch(query);
+                    }, 500);
+                } else {
+                    clearSearch.classList.add('hidden');
+                    recentSearches.classList.remove('hidden');
+                    userResults.classList.remove('hidden');
+                    noResults.classList.add('hidden');
+                    loadingState.classList.add('hidden');
+                }
+            });
+
+            // Clear search
+            clearSearch.addEventListener('click', function() {
+                searchInput.value = '';
+                clearSearch.classList.add('hidden');
+                recentSearches.classList.remove('hidden');
+                userResults.classList.remove('hidden');
+                noResults.classList.add('hidden');
+                loadingState.classList.add('hidden');
+                searchInput.focus();
+            });
+
+            // Filter toggle
+            filterToggle.addEventListener('click', function() {
+                filterPanel.classList.toggle('hidden');
+                filterChevron.classList.toggle('rotate-180');
+            });
+
+            // Profile dropdown
+            profileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                profileDropdown.classList.add('hidden');
+            });
+
+            // Clear search history
+            clearHistory.addEventListener('click', function() {
+                const recentButtons = recentSearches.querySelectorAll('button:not(#clearHistory)');
+                recentButtons.forEach(button => {
+                    button.style.opacity = '0';
+                    button.style.transform = 'scale(0.8)';
+                    setTimeout(() => button.remove(), 200);
+                });
+            });
+
+            // Recent search clicks
+            recentSearches.addEventListener('click', function(e) {
+                if (e.target.tagName === 'BUTTON' && e.target.id !== 'clearHistory') {
+                    searchInput.value = e.target.textContent;
+                    searchInput.dispatchEvent(new Event('input'));
+                }
+            });
+
+            // Follow/Unfollow buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.textContent === 'Follow') {
+                    e.target.textContent = 'Following';
+                    e.target.className = 'px-6 py-2 border border-secondary-300 text-text-secondary rounded-lg hover:bg-secondary-50 transition-colors duration-normal font-medium';
+                } else if (e.target.textContent === 'Following') {
+                    e.target.textContent = 'Follow';
+                    e.target.className = 'px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-normal font-medium';
+                }
+            });
+
+            // Simulate search function
+            function performSearch(query) {
+                setTimeout(() => {
+                    loadingState.classList.add('hidden');
+                    
+                    // Simulate search results based on query
+                    if (query.toLowerCase().includes('no') || query.toLowerCase().includes('xyz')) {
+                        userResults.classList.add('hidden');
+                        noResults.classList.remove('hidden');
+                    } else {
+                        userResults.classList.remove('hidden');
+                        noResults.classList.add('hidden');
+                    }
+                }, 1000);
+            }
+
+            // Infinite scroll simulation
+            window.addEventListener('scroll', function() {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+                    // Load more results
+                    console.log('Loading more results...');
+                }
+            });
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

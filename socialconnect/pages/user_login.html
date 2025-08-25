@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - FriendsVibe</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsocialconn7845back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-contextual-sm border-b border-secondary-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="user_profile.html" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-text-primary">FriendsVibe</span>
+                    </a>
+                </div>
+                
+                <!-- Register Link -->
+                <div class="flex items-center">
+                    <span class="text-text-secondary text-sm mr-2">Need an account?</span>
+                    <a href="user_registration.html" class="text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors duration-fast">
+                        Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md mx-auto">
+            <!-- Login Form Container -->
+            <div class="bg-surface rounded-social shadow-contextual-md p-8">
+                <!-- Form Header -->
+                <div class="text-center mb-8">
+                    <h1 class="text-2xl font-bold text-text-primary mb-2">Welcome Back</h1>
+                    <p class="text-text-secondary">Sign in to your FriendsVibe account</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="hidden bg-error-100 border border-error-500 text-error-500 px-4 py-3 rounded-lg mb-6">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span id="errorText">Invalid credentials. Please try again.</span>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-6" novalidate>
+                    <!-- Email/Username -->
+                    <div>
+                        <label for="emailUsername" class="block text-sm font-medium text-text-primary mb-2">Email or Username</label>
+                        <input type="text" id="emailUsername" name="emailUsername" required class="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-normal" placeholder="Enter your email or username" />
+                        <div id="emailUsernameError" class="hidden text-error-500 text-xs mt-1"></div>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-text-primary mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required class="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-normal pr-12" placeholder="Enter your password" />
+                            <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-secondary-400 hover:text-secondary-600">
+                                <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                                <svg id="eyeOffIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="passwordError" class="hidden text-error-500 text-xs mt-1"></div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-secondary-300 rounded" />
+                            <label for="rememberMe" class="ml-2 text-sm text-text-secondary">
+                                Remember me
+                            </label>
+                        </div>
+                        <a href="javascript:void(0)" id="forgotPasswordLink" class="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" class="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-normal disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="submitText">Sign In</span>
+                        <svg id="loadingSpinner" class="hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Social Login -->
+                <div class="mt-8">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-secondary-200"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-surface text-text-secondary">Or continue with</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-2 gap-3">
+                        <button type="button" id="googleLogin" class="w-full inline-flex justify-center py-3 px-4 border border-secondary-300 rounded-lg shadow-contextual-sm bg-surface text-sm font-medium text-text-secondary hover:bg-secondary-50 transition-colors duration-normal">
+                            <img src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Google" class="w-5 h-5" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <span class="ml-2">Google</span>
+                        </button>
+                        <button type="button" id="facebookLogin" class="w-full inline-flex justify-center py-3 px-4 border border-secondary-300 rounded-lg shadow-contextual-sm bg-surface text-sm font-medium text-text-secondary hover:bg-secondary-50 transition-colors duration-normal">
+                            <img src="https://cdn.pixabay.com/photo/2021/06/15/12/17/facebook-6338507_1280.png" alt="Facebook" class="w-5 h-5" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <span class="ml-2">Facebook</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Links -->
+            <div class="mt-8 text-center">
+                <p class="text-sm text-text-secondary">
+                    Need help? 
+                    <a href="javascript:void(0)" class="text-primary-600 hover:text-primary-700 font-medium">Contact Support</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-surface rounded-social shadow-contextual-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-text-primary">Reset Password</h2>
+                <button id="closeForgotModal" class="text-secondary-400 hover:text-secondary-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-text-secondary mb-4">Enter your email address and we'll send you a link to reset your password.</p>
+            <form id="forgotPasswordForm" class="space-y-4">
+                <div>
+                    <label for="resetEmail" class="block text-sm font-medium text-text-primary mb-2">Email Address</label>
+                    <input type="email" id="resetEmail" name="resetEmail" required class="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-normal" placeholder="Enter your email" />
+                </div>
+                <button type="submit" class="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-normal">
+                    Send Reset Link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-secondary-200 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-sm text-text-secondary">
+                    © 2025 FriendsVibe. All Rights Reserved.
+                </p>
+                <div class="mt-4 flex justify-center space-x-6">
+                    <a href="javascript:void(0)" class="text-text-secondary hover:text-primary-600 text-sm">Privacy Policy</a>
+                    <a href="javascript:void(0)" class="text-text-secondary hover:text-primary-600 text-sm">Terms of Service</a>
+                    <a href="javascript:void(0)" class="text-text-secondary hover:text-primary-600 text-sm">Help Center</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mock user credentials for testing
+        const mockUsers = [
+            { email: 'john.doe@example.com', username: 'johndoe', password: 'password123' },
+            { email: 'jane.smith@example.com', username: 'janesmith', password: 'mypassword' },
+            { email: 'alex.wilson@example.com', username: 'alexwilson', password: 'securepass' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const togglePassword = document.getElementById('togglePassword');
+            const password = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const eyeOffIcon = document.getElementById('eyeOffIcon');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const errorMessage = document.getElementById('errorMessage');
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+            const closeForgotModal = document.getElementById('closeForgotModal');
+            const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                if (type === 'text') {
+                    eyeIcon.classList.add('hidden');
+                    eyeOffIcon.classList.remove('hidden');
+                } else {
+                    eyeIcon.classList.remove('hidden');
+                    eyeOffIcon.classList.add('hidden');
+                }
+            });
+
+            // Show/hide forgot password modal
+            forgotPasswordLink.addEventListener('click', function() {
+                forgotPasswordModal.classList.remove('hidden');
+            });
+
+            closeForgotModal.addEventListener('click', function() {
+                forgotPasswordModal.classList.add('hidden');
+            });
+
+            // Close modal when clicking outside
+            forgotPasswordModal.addEventListener('click', function(e) {
+                if (e.target === forgotPasswordModal) {
+                    forgotPasswordModal.classList.add('hidden');
+                }
+            });
+
+            // Handle forgot password form
+            forgotPasswordForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const resetEmail = document.getElementById('resetEmail').value;
+                
+                // Simulate sending reset email
+                setTimeout(() => {
+                    alert('Password reset link sent to ' + resetEmail);
+                    forgotPasswordModal.classList.add('hidden');
+                    forgotPasswordForm.reset();
+                }, 1000);
+            });
+
+            // Form validation
+            function validateField(field, value) {
+                const errorDiv = document.getElementById(field.id + 'Error');
+                let isValid = true;
+                let errorMessage = '';
+
+                if (field.id === 'emailUsername') {
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Email or username is required';
+                    }
+                } else if (field.id === 'password') {
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Password is required';
+                    }
+                }
+
+                if (isValid) {
+                    field.classList.remove('border-error-500');
+                    errorDiv.classList.add('hidden');
+                } else {
+                    field.classList.add('border-error-500');
+                    errorDiv.textContent = errorMessage;
+                    errorDiv.classList.remove('hidden');
+                }
+
+                return isValid;
+            }
+
+            // Real-time validation
+            const fields = ['emailUsername', 'password'];
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                field.addEventListener('blur', function() {
+                    validateField(field, field.value);
+                });
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const emailUsername = document.getElementById('emailUsername').value;
+                const passwordValue = document.getElementById('password').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+
+                // Validate fields
+                const emailUsernameValid = validateField(document.getElementById('emailUsername'), emailUsername);
+                const passwordValid = validateField(document.getElementById('password'), passwordValue);
+
+                if (!emailUsernameValid || !passwordValid) {
+                    return;
+                }
+
+                // Show loading state
+                submitBtn.disabled = true;
+                submitText.textContent = 'Signing In...';
+                loadingSpinner.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+
+                // Simulate authentication
+                setTimeout(() => {
+                    const user = mockUsers.find(u => 
+                        (u.email === emailUsername || u.username === emailUsername) && 
+                        u.password === passwordValue
+                    );
+
+                    if (user) {
+                        // Store user session
+                        const userData = {
+                            email: user.email,
+                            username: user.username,
+                            loginTime: new Date().toISOString(),
+                            rememberMe: rememberMe
+                        };
+
+                        if (rememberMe) {
+                            localStorage.setItem('socialConnectUser', JSON.stringify(userData));
+                        } else {
+                            sessionStorage.setItem('socialConnectUser', JSON.stringify(userData));
+                        }
+
+                        // Redirect to user profile
+                        window.location.href = 'user_profile.html';
+                    } else {
+                        // Show error
+                        errorMessage.classList.remove('hidden');
+                        submitBtn.disabled = false;
+                        submitText.textContent = 'Sign In';
+                        loadingSpinner.classList.add('hidden');
+                    }
+                }, 1500);
+            });
+
+            // Social login handlers
+            document.getElementById('googleLogin').addEventListener('click', function() {
+                // Simulate Google login
+                alert('Google login would be implemented here');
+            });
+
+            document.getElementById('facebookLogin').addEventListener('click', function() {
+                // Simulate Facebook login
+                alert('Facebook login would be implemented here');
+            });
+
+            // Check if user is already logged in
+            const storedUser = localStorage.getItem('socialConnectUser') || sessionStorage.getItem('socialConnectUser');
+            if (storedUser) {
+                const userData = JSON.parse(storedUser);
+                // Check if login is still valid (within 24 hours for demo)
+                const loginTime = new Date(userData.loginTime);
+                const now = new Date();
+                const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                
+                if (hoursDiff < 24) {
+                    window.location.href = 'user_profile.html';
+                }
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
